@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom'
 import { hidePopup, showPopup } from '../../store/reducer/popup.slice'
 import { fetchUserById } from '../../store/reducer/userById.slice'
 import Breadcrumbs from '../breadCrumbs/BreadCrumbs'
-import InputMask from 'react-input-mask'
 import Loader from '../loader/Loader'
 import styles from './EditUser.module.scss'
 const EditUser = () => {
@@ -29,7 +28,7 @@ const EditUser = () => {
 		username: user.username,
 		email: user.email,
 		city: user.address.city,
-		phone: user.phone,
+		phone: user.phone.replace(/\sx\d+$/, ''),
 		companyName: user.company.name
 	}
 
@@ -64,8 +63,6 @@ const EditUser = () => {
 			dispatch(hidePopup())
 		}, 4000)
 	}
-
-	console.log(user.phone)
 	return (
 		<div className={styles.container}>
 			<div className={styles.containerBlock}>
@@ -157,11 +154,10 @@ const EditUser = () => {
 									</div>
 									<div className={styles.blockInput}>
 										<div className={styles.inputName}>Телефон</div>
-										<InputMask
+										<Field
 											className={`${styles.input} ${
 												touched.phone && errors.phone ? styles.invalid : ''
 											}`}
-											mask='9-999-999-9999'
 											type='text'
 											name='phone'
 											placeholder={user.phone.replace(/\sx\d+$/, '')}
