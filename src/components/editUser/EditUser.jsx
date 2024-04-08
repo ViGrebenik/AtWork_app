@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { hidePopup, showPopup } from '../../store/reducer/popup.slice'
 import { fetchUserById } from '../../store/reducer/userById.slice'
 import Breadcrumbs from '../breadCrumbs/BreadCrumbs'
+import InputMask from 'react-input-mask'
 import Loader from '../loader/Loader'
 import styles from './EditUser.module.scss'
 const EditUser = () => {
@@ -40,6 +41,18 @@ const EditUser = () => {
 		if (!values.username) {
 			errors.username = 'Введите никнейм!'
 		}
+		if (!values.email) {
+			errors.email = 'Введите email!'
+		}
+		if (!values.city) {
+			errors.city = 'Введите город!'
+		}
+		if (!values.phone) {
+			errors.phone = 'Введите телефон!'
+		}
+		if (!values.companyName) {
+			errors.companyName = 'Введите название компании!'
+		}
 		return errors
 	}
 
@@ -52,6 +65,7 @@ const EditUser = () => {
 		}, 4000)
 	}
 
+	console.log(user.phone)
 	return (
 		<div className={styles.container}>
 			<div className={styles.containerBlock}>
@@ -143,13 +157,14 @@ const EditUser = () => {
 									</div>
 									<div className={styles.blockInput}>
 										<div className={styles.inputName}>Телефон</div>
-										<Field
+										<InputMask
 											className={`${styles.input} ${
 												touched.phone && errors.phone ? styles.invalid : ''
 											}`}
+											mask='9-999-999-9999'
 											type='text'
 											name='phone'
-											placeholder={user.phone}
+											placeholder={user.phone.replace(/\sx\d+$/, '')}
 										/>
 										<ErrorMessage
 											name='phone'
