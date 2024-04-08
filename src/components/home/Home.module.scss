@@ -1,0 +1,27 @@
+@import '/src/assets/styles/_variables.scss';
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+.containerBlock {
+	display: flex;
+	flex-direction: column;
+	margin-top: 32px;
+}
+.blockCards {
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+	.blockCardsTitle {
+		font-size: 24px;
+		font-weight: 500;
+		padding: 16px 0;
+		border-bottom: 1px solid $color-font-light-grey;
+	}
+}
+.containerActiveCards {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 40px;
+	margin-bottom: 32px;
+}

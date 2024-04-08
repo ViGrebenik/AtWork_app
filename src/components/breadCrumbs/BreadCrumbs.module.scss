@@ -1,0 +1,26 @@
+@import '/src/assets/styles/_variables.scss';
+.containerBreadCrumbs {
+	display: flex;
+	align-items: center;
+	padding: 20px 0;
+}
+.crumbs {
+	display: flex;
+	align-items: center;
+	.arrow {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+.breadcrumb {
+	font-weight: 400;
+	// color: lighten($color-font-grey, 10%);
+	color: $color-font-grey;
+	text-decoration: none;
+	transition: color 0.3s;
+	font-size: 20px;
+	&:hover {
+		// color: $color-font-grey;
+	}
+}
