@@ -2,11 +2,18 @@
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
+	@media screen and (max-width: 1200px) {
+		max-width: 100%;
+		margin: 0 16px;
+	}
 }
 .containerBlock {
 	display: flex;
 	flex-direction: column;
 	margin-top: 32px;
+	@media screen and (max-width: 1200px) {
+		margin-top: 0;
+	}
 }
 .blockCards {
 	display: flex;
@@ -24,4 +31,11 @@
 	flex-wrap: wrap;
 	gap: 40px;
 	margin-bottom: 32px;
+	@media screen and (max-width: 1200px) {
+		justify-content: center;
+		gap: 20px;
+	}
+	@media screen and (max-width: 726px) {
+		justify-content: start;
+	}
 }

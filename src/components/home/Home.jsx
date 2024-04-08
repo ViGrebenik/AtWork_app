@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsers } from '../../store/reducer/usersSlice'
+import { fetchUsers } from '../../store/reducer/users.slice'
 import Card from './Card/Card'
 import styles from './Home.module.scss'
 const Home = () => {

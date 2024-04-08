@@ -4,7 +4,11 @@ import styles from './Card.module.scss'
 
 const Card = ({ user, type }) => {
 	return (
-		<div className={styles.containerCard}>
+		<div
+			className={`${styles.containerCard} ${
+				type === 'Unarchive' ? styles.unarchive : ''
+			}`}
+		>
 			<div className={styles.imgProfile}>
 				<img src='/public/img/userImgProfile.png' alt='userImgProfile' />
 			</div>

@@ -2,6 +2,10 @@
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
+	@media screen and (max-width: 1200px) {
+		max-width: 100%;
+		margin: 0 16px;
+	}
 }
 .containerBlock {
 	display: flex;
@@ -12,6 +16,9 @@
 	display: flex;
 	gap: 40px;
 	margin-bottom: 60px;
+	@media screen and (max-width: 726px) {
+		flex-wrap: wrap;
+	}
 	.jobProfileDetails {
 		flex: 30%;
 		border-radius: 16px;
@@ -20,9 +27,18 @@
 		flex-direction: column;
 		gap: 40px;
 		background-color: $white;
+		@media screen and (max-width: 726px) {
+			flex: 1;
+		}
 		img {
 			width: 280px;
 			height: 485px;
+			@media screen and (max-width: 726px) {
+				width: 287px;
+				height: 187px;
+				object-fit: cover;
+				border-radius: 16px;
+			}
 		}
 		.profileCategories {
 			display: flex;
@@ -49,7 +65,10 @@
 		display: flex;
 		flex-direction: column;
 		background-color: $white;
-		gap: 24px;
+		gap: 32px;
+		@media screen and (max-width: 726px) {
+			flex: 1;
+		}
 		.editingTitle {
 			font-size: 24px;
 			font-weight: 500;
@@ -61,7 +80,10 @@
 			width: 420px;
 			display: flex;
 			flex-direction: column;
-			gap: 24px;
+			gap: 32px;
+			@media screen and (max-width: 726px) {
+				width: 100%;
+			}
 			.blockInput {
 				display: flex;
 				flex-direction: column;
@@ -74,9 +96,6 @@
 					border-radius: 50px;
 					padding: 8px 8px 8px 16px;
 					border: 2px solid $color-font-light-grey;
-					&.valid {
-						border: 2px solid $color-font-light-grey;
-					}
 					&.invalid {
 						border: 2px solid rgba(255, 53, 53, 0.613);
 					}

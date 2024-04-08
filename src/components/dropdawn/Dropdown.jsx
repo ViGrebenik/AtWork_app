@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import {
 	archiveUser,
 	unarchiveUser
-} from '../../store/reducer/archivedUsersSlice'
-import { addUser, removeUser } from '../../store/reducer/usersSlice'
+} from '../../store/reducer/archivedUsers.slice'
+import { addUser, removeUser } from '../../store/reducer/users.slice'
 import styles from './Dropdown.module.scss'
 
 const Dropdown = ({ user, type }) => {
@@ -24,7 +24,8 @@ const Dropdown = ({ user, type }) => {
 		setIsDropdownOpen(!isDropdownOpen)
 	}
 	const handleHide = () => {
-		// Логика для скрытия
+		dispatch(removeUser(user))
+		setIsDropdownOpen(!isDropdownOpen)
 	}
 	return (
 		<div className={styles.activeProfile}>
@@ -40,7 +41,9 @@ const Dropdown = ({ user, type }) => {
 							isDropdownOpen ? styles.active : ''
 						}`}
 					>
-						<Link to={`/user/${user.id}`}>Редактировать</Link>
+						<Link to={`/user/${user.id}`}>
+							<button>Редактировать</button>
+						</Link>
 						<button onClick={handleArchive}>Архивировать</button>
 						<button onClick={handleHide}>Скрыть</button>
 					</div>
@@ -51,7 +54,7 @@ const Dropdown = ({ user, type }) => {
 						}`}
 					>
 						<button onClick={() => handleUnarchiveUser(user)}>
-							Архивировать
+							Активировать
 						</button>
 					</div>
 				))}

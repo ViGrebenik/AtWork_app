@@ -1,18 +1,24 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { showPopup } from '../../store/reducer/popup.slice'
+import { hidePopup, showPopup } from '../../store/reducer/popup.slice'
 import Breadcrumbs from '../breadCrumbs/BreadCrumbs'
 import styles from './EditUser.module.scss'
+import { fetchUserById } from '../../store/reducer/userById.slice'
 const EditUser = () => {
 	const dispatch = useDispatch()
 	const { userId } = useParams()
-	const [isSubmitting, setIsSubmitting] = useState(false)
-	const user = useSelector(state =>
-		state.users.find(user => user.id === parseInt(userId))
-	)
 
+	const user = useSelector(state => state.userById[userId])
+
+	useEffect(() => {
+		if (!user) {
+			dispatch(fetchUserById(userId))
+		}
+	}, [dispatch, userId, user])
+
+	const [isSubmitting, setIsSubmitting] = useState(false)
 	if (!user) {
 		return <div>User not found</div>
 	}
@@ -41,7 +47,8 @@ const EditUser = () => {
 		dispatch(showPopup({ message: 'Изменения сохранены!' }))
 		setTimeout(() => {
 			setIsSubmitting(false)
-		}, 1000)
+			dispatch(hidePopup())
+		}, 4000)
 	}
 
 	return (
@@ -71,9 +78,7 @@ const EditUser = () => {
 										<div className={styles.inputName}>Имя</div>
 										<Field
 											className={`${styles.input} ${
-												touched.name && !errors.name
-													? styles.valid
-													: styles.invalid
+												touched.name && errors.name ? styles.invalid : ''
 											}`}
 											type='text'
 											placeholder={user.name}
@@ -89,9 +94,9 @@ const EditUser = () => {
 										<div className={styles.inputName}>Никнейм</div>
 										<Field
 											className={`${styles.input} ${
-												touched.username && !errors.username
-													? styles.valid
-													: styles.invalid
+												touched.username && errors.username
+													? styles.invalid
+													: ''
 											}`}
 											type='text'
 											placeholder={user.username}
@@ -99,6 +104,72 @@ const EditUser = () => {
 										/>
 										<ErrorMessage
 											name='username'
+											component='div'
+											className={styles.error}
+										/>
+									</div>
+									<div className={styles.blockInput}>
+										<div className={styles.inputName}>Почта</div>
+										<Field
+											className={`${styles.input} ${
+												touched.email && errors.email ? styles.invalid : ''
+											}`}
+											type='text'
+											name='email'
+											placeholder={user.email}
+										/>
+										<ErrorMessage
+											name='email'
+											component='div'
+											className={styles.error}
+										/>
+									</div>
+									<div className={styles.blockInput}>
+										<div className={styles.inputName}>Город</div>
+										<Field
+											className={`${styles.input} ${
+												touched.city && errors.city ? styles.invalid : ''
+											}`}
+											type='text'
+											name='city'
+											placeholder={user.city}
+										/>
+										<ErrorMessage
+											name='city'
+											component='div'
+											className={styles.error}
+										/>
+									</div>
+									<div className={styles.blockInput}>
+										<div className={styles.inputName}>Телефон</div>
+										<Field
+											className={`${styles.input} ${
+												touched.phone && errors.phone ? styles.invalid : ''
+											}`}
+											type='text'
+											name='phone'
+											placeholder={user.phone}
+										/>
+										<ErrorMessage
+											name='phone'
+											component='div'
+											className={styles.error}
+										/>
+									</div>
+									<div className={styles.blockInput}>
+										<div className={styles.inputName}>Название компании</div>
+										<Field
+											className={`${styles.input} ${
+												touched.companyName && errors.companyName
+													? styles.invalid
+													: ''
+											}`}
+											type='text'
+											name='companyName'
+											placeholder={user.companyName}
+										/>
+										<ErrorMessage
+											name='companyName'
 											component='div'
 											className={styles.error}
 										/>
@@ -126,21 +197,6 @@ export default EditUser
 
 {
 	/* <div className={styles.blockInput}>
-									<div className={styles.inputName}>Никнейм</div>
-									<Field className={styles.input} type='text' name='username' />
-								</div>
-								<div className={styles.blockInput}>
-									<div className={styles.inputName}>Почта</div>
-									<Field className={styles.input} type='text' name='email' />
-								</div>
-								<div className={styles.blockInput}>
-									<div className={styles.inputName}>Город</div>
-									<Field className={styles.input} type='text' name='city' />
-								</div>
-								<div className={styles.blockInput}>
-									<div className={styles.inputName}>Телефон</div>
-									<Field className={styles.input} type='text' name='phone' />
-								</div>
 								<div className={styles.blockInput}>
 									<div className={styles.inputName}>Название компании</div>
 									<Field
