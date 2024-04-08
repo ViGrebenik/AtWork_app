@@ -7,7 +7,7 @@ const Breadcrumbs = () => {
 		<div className={styles.containerBreadCrumbs}>
 			<div className={styles.crumbs}>
 				<img
-					src='/public/icons/Backarrow.svg'
+					src='/icons/Backarrow.svg'
 					alt='arrowBack'
 					className={styles.arrow}
 				/>

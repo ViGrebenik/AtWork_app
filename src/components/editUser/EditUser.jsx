@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { hidePopup, showPopup } from '../../store/reducer/popup.slice'
-import Breadcrumbs from '../breadCrumbs/BreadCrumbs'
-import styles from './EditUser.module.scss'
 import { fetchUserById } from '../../store/reducer/userById.slice'
+import Breadcrumbs from '../breadCrumbs/BreadCrumbs'
+import Loader from '../loader/Loader'
+import styles from './EditUser.module.scss'
 const EditUser = () => {
 	const dispatch = useDispatch()
 	const { userId } = useParams()
@@ -20,7 +21,7 @@ const EditUser = () => {
 
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	if (!user) {
-		return <div>User not found</div>
+		return <Loader />
 	}
 	const initialValues = {
 		name: user.name,
@@ -57,7 +58,7 @@ const EditUser = () => {
 				<Breadcrumbs />
 				<div className={styles.blockEditUser}>
 					<div className={styles.jobProfileDetails}>
-						<img src='/public/img/imgProfileEdit.png' alt='profileImg' />
+						<img src='/img/imgProfileEdit.png' alt='profileImg' />
 						<div className={styles.profileCategories}>
 							<div className={styles.category}>Данные профиля</div>
 							<div className={styles.category}>Рабочее пространство</div>

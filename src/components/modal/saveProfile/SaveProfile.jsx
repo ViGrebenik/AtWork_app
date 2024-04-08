@@ -17,9 +17,9 @@ const SaveProfile = () => {
 		>
 			<div className={styles.popup}>
 				<div onClick={handleClose} className={styles.close}>
-					<img src='/public/icons/close.svg' alt='iconSave' />
+					<img src='/icons/close.svg' alt='iconSave' />
 				</div>
-				<img src='/public/icons/Checked.svg' alt='iconSave' />
+				<img src='/icons/Checked.svg' alt='iconSave' />
 				<p>{message}</p>
 			</div>
 		</div>

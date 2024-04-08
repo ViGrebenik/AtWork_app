@@ -8,6 +8,16 @@ const userByIdSlice = createSlice({
 		setUserById(state, action) {
 			const { id, data } = action.payload
 			return { ...state, [id]: data }
+		},
+		removeUserById(state, action) {
+			const id = action.payload
+			const newState = { ...state }
+			delete newState[id]
+			return newState
+		},
+		updateUserById(state, action) {
+			const { id, data } = action.payload
+			return { ...state, [id]: { ...state[id], ...data } }
 		}
 	}
 })
@@ -23,6 +33,7 @@ export const fetchUserById = id => async dispatch => {
 	}
 }
 
-export const { setUserById } = userByIdSlice.actions
+export const { setUserById, removeUserById, updateUserById } =
+	userByIdSlice.actions
 
 export default userByIdSlice.reducer

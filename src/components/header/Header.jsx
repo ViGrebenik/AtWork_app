@@ -19,20 +19,17 @@ const Header = () => {
 						{isMobile ? (
 							<>
 								<div className={styles.userBlock}>
-									<img src='/public/img/userPanelV2.png' alt='userPanelImg' />
+									<img src='/img/userPanelV2.png' alt='userPanelImg' />
 								</div>
 							</>
 						) : (
 							<>
 								<div className={styles.userPanel}>
 									<img src='/icons/Favorite.svg' alt='Favorite' />
-									<img
-										src='/public/icons/Notification.svg'
-										alt='Notification'
-									/>
+									<img src='/icons/Notification.svg' alt='Notification' />
 								</div>
 								<div className={styles.userBlock}>
-									<img src='/public/img/userPanelV2.png' alt='userPanelImg' />
+									<img src='/img/userPanelV2.png' alt='userPanelImg' />
 									<div className={styles.userName}></div>
 								</div>
 							</>

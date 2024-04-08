@@ -1,38 +1,50 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
+	const response = await axios.get(
+		'https://jsonplaceholder.typicode.com/users',
+		{
+			params: {
+				_limit: 6
+			}
+		}
+	)
+	return response.data
+})
 
 const usersSlice = createSlice({
 	name: 'users',
-	initialState: [],
+	initialState: {
+		list: [],
+		loading: false,
+		error: null
+	},
 	reducers: {
-		setUsers(state, action) {
-			return action.payload
-		},
 		removeUser(state, action) {
-			return state.filter(user => user.id !== action.payload.id)
+			state.list = state.list.filter(user => user.id !== action.payload.id)
 		},
 		addUser(state, action) {
-			return [action.payload, ...state]
+			state.list.unshift(action.payload)
 		}
+	},
+	extraReducers: builder => {
+		builder
+			.addCase(fetchUsers.pending, state => {
+				state.loading = true
+				state.error = null
+			})
+			.addCase(fetchUsers.fulfilled, (state, action) => {
+				state.loading = false
+				state.list = action.payload
+			})
+			.addCase(fetchUsers.rejected, (state, action) => {
+				state.loading = false
+				state.error = action.error.message
+			})
 	}
 })
 
-export const fetchUsers = () => async dispatch => {
-	try {
-		const response = await axios.get(
-			'https://jsonplaceholder.typicode.com/users',
-			{
-				params: {
-					_limit: 6
-				}
-			}
-		)
-		dispatch(usersSlice.actions.setUsers(response.data))
-	} catch (error) {
-		console.error('Error fetching users:', error)
-	}
-}
-
-export const { setUsers, removeUser, addUser } = usersSlice.actions
+export const { removeUser, addUser } = usersSlice.actions
 
 export default usersSlice.reducer

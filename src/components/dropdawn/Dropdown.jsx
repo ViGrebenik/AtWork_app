@@ -30,7 +30,7 @@ const Dropdown = ({ user, type }) => {
 	return (
 		<div className={styles.activeProfile}>
 			<img
-				src='/public/icons/active.svg'
+				src='/icons/active.svg'
 				alt='activeProfile'
 				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 			/>

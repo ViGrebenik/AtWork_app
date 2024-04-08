@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers } from '../../store/reducer/users.slice'
 import Card from './Card/Card'
 import styles from './Home.module.scss'
+import Loader from '../loader/Loader'
 const Home = () => {
 	const dispatch = useDispatch()
-	const users = useSelector(state => state.users)
+	const users = useSelector(state => state.users.list)
+	const loading = useSelector(state => state.users.loading)
 	const archivedUsers = useSelector(state => state.selectedUser)
 
 	useEffect(() => {
 		dispatch(fetchUsers())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<div className={styles.container}>
@@ -18,11 +20,15 @@ const Home = () => {
 				<div className={styles.blockCards}>
 					<div className={styles.blockCardsTitle}>Активные</div>
 					<div className={styles.containerActiveCards}>
-						{users.map((user, index) => (
-							<div key={index} className={styles.cardWrapper}>
-								<Card user={user} />
-							</div>
-						))}
+						{loading ? (
+							<Loader />
+						) : (
+							users.map((user, index) => (
+								<div key={index} className={styles.cardWrapper}>
+									<Card user={user} />
+								</div>
+							))
+						)}
 					</div>
 				</div>
 				<div className={styles.blockCards}>

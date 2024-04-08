@@ -10,7 +10,7 @@ const Card = ({ user, type }) => {
 			}`}
 		>
 			<div className={styles.imgProfile}>
-				<img src='/public/img/userImgProfile.png' alt='userImgProfile' />
+				<img src='/img/userImgProfile.png' alt='userImgProfile' />
 			</div>
 			<div className={styles.dataCard}>
 				<div className={styles.blockProfileData}>
