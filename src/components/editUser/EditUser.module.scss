@@ -16,7 +16,7 @@
 	display: flex;
 	gap: 40px;
 	margin-bottom: 60px;
-	@media screen and (max-width: 726px) {
+	@media screen and (max-width: 926px) {
 		flex-wrap: wrap;
 	}
 	.jobProfileDetails {
@@ -31,10 +31,10 @@
 			flex: 1;
 		}
 		img {
-			width: 280px;
+			max-width: 280px;
 			height: 485px;
 			@media screen and (max-width: 726px) {
-				width: 287px;
+				max-width: 287px;
 				height: 187px;
 				object-fit: cover;
 				border-radius: 16px;
@@ -67,7 +67,7 @@
 		background-color: $white;
 		gap: 32px;
 		@media screen and (max-width: 726px) {
-			flex: 1;
+			flex: 100%;
 		}
 		.editingTitle {
 			font-size: 24px;
