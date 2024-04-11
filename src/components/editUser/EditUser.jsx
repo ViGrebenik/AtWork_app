@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { hidePopup, showPopup } from '../../store/reducer/popup.slice'
@@ -19,6 +19,21 @@ const EditUser = () => {
 		}
 	}, [dispatch, userId, user])
 
+	const timeoutRef = useRef(null)
+
+	const handleSubmit = () => {
+		setIsSubmitting(true)
+		dispatch(showPopup({ message: 'Изменения сохранены!' }))
+
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current)
+		}
+
+		timeoutRef.current = setTimeout(() => {
+			setIsSubmitting(false)
+			dispatch(hidePopup())
+		}, 4000)
+	}
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	if (!user) {
 		return <Loader />
@@ -55,14 +70,6 @@ const EditUser = () => {
 		return errors
 	}
 
-	const handleSubmit = () => {
-		setIsSubmitting(true)
-		dispatch(showPopup({ message: 'Изменения сохранены!' }))
-		setTimeout(() => {
-			setIsSubmitting(false)
-			dispatch(hidePopup())
-		}, 4000)
-	}
 	return (
 		<div className={styles.container}>
 			<div className={styles.containerBlock}>

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
@@ -12,21 +12,38 @@ import styles from './Dropdown.module.scss'
 const Dropdown = ({ user, type }) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const dispatch = useDispatch()
+	const dropdownRef = useRef(null)
 
 	const handleArchive = () => {
 		dispatch(archiveUser(user))
 		dispatch(removeUser(user))
-		setIsDropdownOpen(!isDropdownOpen)
+		setIsDropdownOpen(false)
 	}
+
 	const handleUnarchiveUser = user => {
 		dispatch(unarchiveUser(user))
 		dispatch(addUser(user))
-		setIsDropdownOpen(!isDropdownOpen)
+		setIsDropdownOpen(false)
 	}
+
 	const handleHide = () => {
 		dispatch(removeUser(user))
-		setIsDropdownOpen(!isDropdownOpen)
+		setIsDropdownOpen(false)
 	}
+
+	const handleClickOutside = event => {
+		if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+			setIsDropdownOpen(false)
+		}
+	}
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClickOutside)
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside)
+		}
+	}, [])
+
 	return (
 		<div className={styles.activeProfile}>
 			<img
@@ -37,6 +54,7 @@ const Dropdown = ({ user, type }) => {
 			{isDropdownOpen &&
 				(type !== 'Unarchive' ? (
 					<div
+						ref={dropdownRef}
 						className={`${styles.dropdown} ${
 							isDropdownOpen ? styles.active : ''
 						}`}
@@ -49,6 +67,7 @@ const Dropdown = ({ user, type }) => {
 					</div>
 				) : (
 					<div
+						ref={dropdownRef}
 						className={`${styles.dropdown} ${
 							isDropdownOpen ? styles.active : ''
 						}`}
