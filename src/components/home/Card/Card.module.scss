@@ -14,7 +14,8 @@
 	@media screen and (max-width: 726px) {
 		flex-direction: column;
 		width: 162px;
-		height: 242px;
+		gap: 16px;
+		height: 100%;
 		padding: 16px;
 	}
 }
@@ -47,13 +48,13 @@
 				gap: 4px;
 				.profileName {
 					font-weight: 600;
-					font-size: clamp(14px, 1.5vw, 20px);
+					font-size: clamp(18px, 1.5vw, 20px);
 					color: $color-accent;
 				}
 				.profileWork {
 					font-weight: 500;
 					color: $color-font-light-black;
-					font-size: clamp(10px, 1.5vw, 16px);
+					font-size: clamp(14px, 1.5vw, 16px);
 				}
 			}
 		}
