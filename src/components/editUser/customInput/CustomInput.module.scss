@@ -3,8 +3,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-
+	position: relative;
 	.inputName {
+		font-weight: 600;
 		font-size: 18px;
 	}
 	.inputAction {
@@ -17,7 +18,7 @@
 			padding: 8px 8px 8px 16px;
 			border: 2px solid $color-font-light-grey;
 			&.invalid {
-				border: 2px solid rgba(255, 53, 53, 0.613);
+				border: 2px solid rgba(255, 55, 55, 0.613);
 			}
 		}
 
@@ -38,6 +39,8 @@
 		}
 	}
 	.error {
+		position: absolute;
+		top: 70px;
 		color: rgba(255, 53, 53, 0.613);
 	}
 }

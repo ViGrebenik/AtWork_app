@@ -154,7 +154,7 @@ const EditUser = () => {
 									<CustomInput
 										name='companyName'
 										label='Название компании'
-										placeholder={user.company.name}
+										placeholder={'Введите название компании'}
 										errors={errors}
 										touched={touched}
 										setFieldValue={setFieldValue}

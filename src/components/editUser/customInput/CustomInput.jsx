@@ -62,7 +62,7 @@ const CustomInput = ({
 						}}
 						className={styles.clearButton}
 					>
-						&times;
+						<img src='/icons/clear.svg' alt='clearIcon' />
 					</button>
 				)}
 			</div>
