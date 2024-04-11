@@ -43,24 +43,19 @@ const CustomInput = ({
 					type='text'
 					placeholder={placeholder}
 					name={name}
-					onBlur={e => {
-						if (!containerRef.current.contains(e.relatedTarget)) {
-							setIsFocused(false)
-						}
-					}}
-					onFocus={() => {
-						setIsFocused(true)
-						setActiveInput(name)
-					}}
 				/>
 				{isFocused && values[name] && activeInput === name && (
 					<button
 						type='button'
 						onClick={() => {
 							setFieldValue(name, '')
-							setIsFocused(true)
+							setIsFocused(false)
 						}}
 						className={styles.clearButton}
+						onFocus={() => {
+							setIsFocused(true)
+							setActiveInput(name)
+						}}
 					>
 						<img src='/icons/clear.svg' alt='clearIcon' />
 					</button>
