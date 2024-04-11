@@ -14,13 +14,9 @@
 }
 
 .breadcrumb {
-	font-weight: 400;
-	// color: lighten($color-font-grey, 10%);
+	font-weight: 600;
 	color: $color-font-grey;
 	text-decoration: none;
 	transition: color 0.3s;
 	font-size: 20px;
-	&:hover {
-		// color: $color-font-grey;
-	}
 }

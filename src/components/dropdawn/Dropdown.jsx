@@ -12,7 +12,6 @@ import styles from './Dropdown.module.scss'
 const Dropdown = ({ user, type }) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const dispatch = useDispatch()
-	const dropdownRef = useRef(null)
 
 	const handleArchive = () => {
 		dispatch(archiveUser(user))
@@ -20,7 +19,7 @@ const Dropdown = ({ user, type }) => {
 		setIsDropdownOpen(false)
 	}
 
-	const handleUnarchiveUser = user => {
+	const handleUnarchiveUser = () => {
 		dispatch(unarchiveUser(user))
 		dispatch(addUser(user))
 		setIsDropdownOpen(false)
@@ -31,8 +30,23 @@ const Dropdown = ({ user, type }) => {
 		setIsDropdownOpen(false)
 	}
 
+	// Костыль
+
+	const dropdownRef = useRef(null)
+	const editButtonRef = useRef(null)
+	const archiveButtonRef = useRef(null)
+	const hideButtonRef = useRef(null)
+	const unArchiveButtonRef = useRef(null)
+
 	const handleClickOutside = event => {
-		if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+		if (
+			dropdownRef.current &&
+			!dropdownRef.current.contains(event.target) &&
+			event.target !== editButtonRef.current &&
+			event.target !== archiveButtonRef.current &&
+			event.target !== hideButtonRef.current &&
+			event.target !== unArchiveButtonRef.current
+		) {
 			setIsDropdownOpen(false)
 		}
 	}
@@ -44,12 +58,16 @@ const Dropdown = ({ user, type }) => {
 		}
 	}, [])
 
-	//
+	const handleToggleDropdown = () => {
+		setIsDropdownOpen(!isDropdownOpen)
+	}
+
 	return (
 		<div className={styles.activeProfile}>
 			<div
 				className={styles.svgDropDawn}
-				onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+				ref={dropdownRef}
+				onClick={handleToggleDropdown}
 			>
 				<svg
 					width='24'
@@ -77,32 +95,31 @@ const Dropdown = ({ user, type }) => {
 				</svg>
 			</div>
 
-			{isDropdownOpen &&
-				(type !== 'Unarchive' ? (
-					<div
-						ref={dropdownRef}
-						className={`${styles.dropdown} ${
-							isDropdownOpen ? styles.active : ''
-						}`}
-					>
-						<Link to={`/user/${user.id}`}>
-							<button>Редактировать</button>
-						</Link>
-						<button onClick={handleArchive}>Архивировать</button>
-						<button onClick={handleHide}>Скрыть</button>
-					</div>
-				) : (
-					<div
-						ref={dropdownRef}
-						className={`${styles.dropdown} ${
-							isDropdownOpen ? styles.active : ''
-						}`}
-					>
-						<button onClick={() => handleUnarchiveUser(user)}>
+			{isDropdownOpen && (
+				<div
+					className={`${styles.dropdown} ${
+						isDropdownOpen ? styles.active : ''
+					}`}
+				>
+					{type !== 'Unarchive' ? (
+						<>
+							<Link to={`/user/${user.id}`}>
+								<button ref={editButtonRef}>Редактировать</button>
+							</Link>
+							<button onClick={handleArchive} ref={archiveButtonRef}>
+								Архивировать
+							</button>
+							<button onClick={handleHide} ref={hideButtonRef}>
+								Скрыть
+							</button>
+						</>
+					) : (
+						<button onClick={handleUnarchiveUser} ref={unArchiveButtonRef}>
 							Активировать
 						</button>
-					</div>
-				))}
+					)}
+				</div>
+			)}
 		</div>
 	)
 }
