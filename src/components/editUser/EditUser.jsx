@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Form, Formik } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -7,9 +7,14 @@ import { fetchUserById } from '../../store/reducer/userById.slice'
 import Breadcrumbs from '../breadCrumbs/BreadCrumbs'
 import Loader from '../loader/Loader'
 import styles from './EditUser.module.scss'
+import CustomInput from './customInput/CustomInput'
+
 const EditUser = () => {
 	const dispatch = useDispatch()
 	const { userId } = useParams()
+	const timeoutRef = useRef(null)
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const [activeInput, setActiveInput] = useState(null)
 
 	const user = useSelector(state => state.userById[userId])
 
@@ -18,8 +23,6 @@ const EditUser = () => {
 			dispatch(fetchUserById(userId))
 		}
 	}, [dispatch, userId, user])
-
-	const timeoutRef = useRef(null)
 
 	const handleSubmit = () => {
 		setIsSubmitting(true)
@@ -34,7 +37,7 @@ const EditUser = () => {
 			dispatch(hidePopup())
 		}, 4000)
 	}
-	const [isSubmitting, setIsSubmitting] = useState(false)
+
 	if (!user) {
 		return <Loader />
 	}
@@ -56,7 +59,7 @@ const EditUser = () => {
 			errors.username = 'Введите никнейм!'
 		}
 		if (!values.email) {
-			errors.email = 'Введите email!'
+			errors.email = 'Введите почту!'
 		}
 		if (!values.city) {
 			errors.city = 'Введите город!'
@@ -89,110 +92,76 @@ const EditUser = () => {
 						onSubmit={handleSubmit}
 						validate={validate}
 					>
-						{({ errors, touched }) => (
+						{({ errors, touched, setFieldValue, values }) => (
 							<Form className={styles.editingProfileData}>
 								<div className={styles.editingTitle}>Данные профиля</div>
 								<div className={styles.containerInputs}>
-									<div className={styles.blockInput}>
-										<div className={styles.inputName}>Имя</div>
-										<Field
-											className={`${styles.input} ${
-												touched.name && errors.name ? styles.invalid : ''
-											}`}
-											type='text'
-											placeholder={user.name}
-											name='name'
-										/>
-										<ErrorMessage
-											name='name'
-											component='div'
-											className={styles.error}
-										/>
-									</div>
-									<div className={styles.blockInput}>
-										<div className={styles.inputName}>Никнейм</div>
-										<Field
-											className={`${styles.input} ${
-												touched.username && errors.username
-													? styles.invalid
-													: ''
-											}`}
-											type='text'
-											placeholder={user.username}
-											name='username'
-										/>
-										<ErrorMessage
-											name='username'
-											component='div'
-											className={styles.error}
-										/>
-									</div>
-									<div className={styles.blockInput}>
-										<div className={styles.inputName}>Почта</div>
-										<Field
-											className={`${styles.input} ${
-												touched.email && errors.email ? styles.invalid : ''
-											}`}
-											type='text'
-											name='email'
-											placeholder={user.email}
-										/>
-										<ErrorMessage
-											name='email'
-											component='div'
-											className={styles.error}
-										/>
-									</div>
-									<div className={styles.blockInput}>
-										<div className={styles.inputName}>Город</div>
-										<Field
-											className={`${styles.input} ${
-												touched.city && errors.city ? styles.invalid : ''
-											}`}
-											type='text'
-											name='city'
-											placeholder={user.city}
-										/>
-										<ErrorMessage
-											name='city'
-											component='div'
-											className={styles.error}
-										/>
-									</div>
-									<div className={styles.blockInput}>
-										<div className={styles.inputName}>Телефон</div>
-										<Field
-											className={`${styles.input} ${
-												touched.phone && errors.phone ? styles.invalid : ''
-											}`}
-											type='text'
-											name='phone'
-											placeholder={user.phone.replace(/\sx\d+$/, '')}
-										/>
-										<ErrorMessage
-											name='phone'
-											component='div'
-											className={styles.error}
-										/>
-									</div>
-									<div className={styles.blockInput}>
-										<div className={styles.inputName}>Название компании</div>
-										<Field
-											className={`${styles.input} ${
-												touched.companyName && errors.companyName
-													? styles.invalid
-													: ''
-											}`}
-											type='text'
-											name='companyName'
-											placeholder={user.companyName}
-										/>
-										<ErrorMessage
-											name='companyName'
-											component='div'
-											className={styles.error}
-										/>
-									</div>
+									<CustomInput
+										name='name'
+										label='Имя'
+										placeholder='Введите имя'
+										errors={errors}
+										touched={touched}
+										setFieldValue={setFieldValue}
+										values={values}
+										activeInput={activeInput}
+										setActiveInput={setActiveInput}
+									/>
+									<CustomInput
+										name='username'
+										label='Никнейм'
+										placeholder='Введите никнейм'
+										errors={errors}
+										touched={touched}
+										setFieldValue={setFieldValue}
+										values={values}
+										activeInput={activeInput}
+										setActiveInput={setActiveInput}
+									/>
+									<CustomInput
+										name='email'
+										label='Почта'
+										placeholder='Введите email'
+										errors={errors}
+										touched={touched}
+										setFieldValue={setFieldValue}
+										values={values}
+										activeInput={activeInput}
+										setActiveInput={setActiveInput}
+									/>
+									<CustomInput
+										name='city'
+										label='Город'
+										placeholder='Введите город'
+										errors={errors}
+										touched={touched}
+										setFieldValue={setFieldValue}
+										values={values}
+										activeInput={activeInput}
+										setActiveInput={setActiveInput}
+									/>
+									<CustomInput
+										name='phone'
+										label='Телефон'
+										placeholder='Введите телефон'
+										errors={errors}
+										touched={touched}
+										setFieldValue={setFieldValue}
+										values={values}
+										activeInput={activeInput}
+										setActiveInput={setActiveInput}
+									/>
+									<CustomInput
+										name='companyName'
+										label='Название компании'
+										placeholder={user.company.name}
+										errors={errors}
+										touched={touched}
+										setFieldValue={setFieldValue}
+										values={values}
+										activeInput={activeInput}
+										setActiveInput={setActiveInput}
+									/>
 								</div>
 								<div className={styles.containerButton}>
 									<button
@@ -214,8 +183,8 @@ const EditUser = () => {
 
 export default EditUser
 
-{
-	/* <div className={styles.blockInput}>
+// {
+/* <div className={styles.blockInput}>
 								<div className={styles.blockInput}>
 									<div className={styles.inputName}>Название компании</div>
 									<Field
@@ -224,4 +193,4 @@ export default EditUser
 										name='companyName'
 									/>
 								</div> */
-}
+// }
