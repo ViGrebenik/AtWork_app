@@ -182,15 +182,3 @@ const EditUser = () => {
 }
 
 export default EditUser
-
-// {
-/* <div className={styles.blockInput}>
-								<div className={styles.blockInput}>
-									<div className={styles.inputName}>Название компании</div>
-									<Field
-										className={styles.input}
-										type='text'
-										name='companyName'
-									/>
-								</div> */
-// }
