@@ -45,15 +45,20 @@
 			flex-direction: column;
 			gap: 24px;
 			.category {
+				cursor: default;
 				font-weight: 600;
 				font-size: 16px;
 				padding-bottom: 16px;
 				border-bottom: 1px solid $color-font-light-grey;
 				color: $color-font-light-grey;
-
+				transition: all 0.4s ease;
 				&:first-of-type {
-					font-weight: 600;
 					color: $color-font-black;
+				}
+				@media (hover: hover) {
+					&:hover {
+						color: $color-accent;
+					}
 				}
 			}
 		}

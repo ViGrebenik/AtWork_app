@@ -11,7 +11,7 @@
 	&.unarchive {
 		filter: grayscale(100%);
 	}
-	@media screen and (max-width: 726px) {
+	@media screen and (max-width: 426px) {
 		flex-direction: column;
 		width: 162px;
 		gap: 16px;
@@ -23,7 +23,7 @@
 	img {
 		width: 112px;
 		height: 120px;
-		@media screen and (max-width: 726px) {
+		@media screen and (max-width: 426px) {
 			width: 130px;
 			height: 120px;
 		}
@@ -31,7 +31,7 @@
 }
 .dataCard {
 	width: 100%;
-	@media screen and (max-width: 726px) {
+	@media screen and (max-width: 426px) {
 		height: 100%;
 	}
 	.blockProfileData {
