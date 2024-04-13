@@ -1,5 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
+
+export const fetchUserById = createAsyncThunk(
+	'userById/fetchUserById',
+	async (id, { dispatch }) => {
+		try {
+			const response = await axios.get(
+				`https://jsonplaceholder.typicode.com/users/${id}`
+			)
+			dispatch(userByIdSlice.actions.setUserById({ id, data: response.data }))
+		} catch (error) {
+			console.error(`Error fetching user with id ${id}:`, error)
+		}
+	}
+)
 
 const userByIdSlice = createSlice({
 	name: 'userById',
@@ -21,17 +35,6 @@ const userByIdSlice = createSlice({
 		}
 	}
 })
-
-export const fetchUserById = id => async dispatch => {
-	try {
-		const response = await axios.get(
-			`https://jsonplaceholder.typicode.com/users/${id}`
-		)
-		dispatch(userByIdSlice.actions.setUserById({ id, data: response.data }))
-	} catch (error) {
-		console.error(`Error fetching user with id ${id}:`, error)
-	}
-}
 
 export const { setUserById, removeUserById, updateUserById } =
 	userByIdSlice.actions

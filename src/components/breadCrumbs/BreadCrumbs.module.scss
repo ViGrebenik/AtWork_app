@@ -19,4 +19,7 @@
 	text-decoration: none;
 	transition: color 0.3s;
 	font-size: 20px;
+	&:hover {
+		color: darken($color-font-grey, 10%);
+	}
 }
