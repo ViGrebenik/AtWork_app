@@ -6,16 +6,15 @@
 	padding: 24px;
 	background-color: $white;
 	border-radius: 16px;
-	width: 360px;
-	height: 170px;
+	max-width: 360px;
+	width: 100%;
 	&.unarchive {
 		filter: grayscale(100%);
 	}
 	@media screen and (max-width: 426px) {
 		flex-direction: column;
-		width: 162px;
+		max-width: 162px;
 		gap: 16px;
-		height: 100%;
 		padding: 16px;
 	}
 }

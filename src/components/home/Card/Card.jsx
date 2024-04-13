@@ -2,9 +2,10 @@
 import Dropdown from '../../dropdawn/Dropdown'
 import styles from './Card.module.scss'
 
-const Card = ({ user, type }) => {
+const Card = ({ user, type, index }) => {
 	return (
 		<div
+			key={index}
 			className={`${styles.containerCard} ${
 				type === 'Unarchive' ? styles.unarchive : ''
 			}`}

@@ -23,11 +23,7 @@ const Home = () => {
 						{loading ? (
 							<Loader />
 						) : (
-							users.map((user, index) => (
-								<div key={index} className={styles.cardWrapper}>
-									<Card user={user} />
-								</div>
-							))
+							users.map((user, index) => <Card user={user} key={index} />)
 						)}
 					</div>
 				</div>
@@ -35,9 +31,7 @@ const Home = () => {
 					<div className={styles.blockCardsTitle}>Aрхив</div>
 					<div className={styles.containerActiveCards}>
 						{archivedUsers.map((user, index) => (
-							<div key={index} className={styles.cardWrapper}>
-								<Card user={user} type={'Unarchive'} />
-							</div>
+							<Card user={user} key={index} />
 						))}
 					</div>
 				</div>
