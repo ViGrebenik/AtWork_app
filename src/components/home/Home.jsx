@@ -31,7 +31,7 @@ const Home = () => {
 					<div className={styles.blockCardsTitle}>Aрхив</div>
 					<div className={styles.containerActiveCards}>
 						{archivedUsers.map((user, index) => (
-							<Card user={user} key={index} />
+							<Card user={user} type={'Unarchive'} key={index} />
 						))}
 					</div>
 				</div>

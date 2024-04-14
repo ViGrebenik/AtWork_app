@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { hidePopup, showPopup } from '../../store/reducer/popup.slice'
@@ -24,7 +24,7 @@ const EditUser = () => {
 		}
 	}, [dispatch, userId, user])
 
-	const handleSubmit = () => {
+	const handleSubmit = useCallback(() => {
 		setIsSubmitting(true)
 		dispatch(showPopup({ message: 'Изменения сохранены!' }))
 
@@ -36,11 +36,12 @@ const EditUser = () => {
 			setIsSubmitting(false)
 			dispatch(hidePopup())
 		}, 4000)
-	}
+	}, [dispatch, setIsSubmitting])
 
 	if (!user) {
 		return <Loader />
 	}
+
 	const initialValues = {
 		name: user.name,
 		username: user.username,

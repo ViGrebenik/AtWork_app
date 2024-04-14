@@ -19,6 +19,9 @@
 	}
 }
 .imgProfile {
+	&.unarchive {
+		filter: grayscale(100%);
+	}
 	img {
 		width: 112px;
 		height: 120px;
@@ -45,6 +48,9 @@
 				display: flex;
 				flex-direction: column;
 				gap: 4px;
+				&.unarchive {
+					filter: grayscale(100%);
+				}
 				.profileName {
 					font-weight: 600;
 					font-size: clamp(18px, 1.5vw, 20px);
@@ -61,6 +67,9 @@
 			font-weight: 500;
 			font-size: clamp(10px, 1.5vw, 16px);
 			color: $color-font-light-grey;
+			&.unarchive {
+				filter: grayscale(100%);
+			}
 		}
 	}
 }

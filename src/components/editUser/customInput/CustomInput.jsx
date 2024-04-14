@@ -2,6 +2,7 @@
 import { ErrorMessage, Field } from 'formik'
 import { useEffect, useRef, useState } from 'react'
 import styles from './CustomInput.module.scss'
+import cn from 'classnames'
 
 const CustomInput = ({
 	name,
@@ -37,9 +38,9 @@ const CustomInput = ({
 			<div className={styles.inputName}>{label}</div>
 			<div className={styles.inputAction}>
 				<Field
-					className={`${styles.input} ${
-						touched[name] && errors[name] ? styles.invalid : ''
-					}`}
+					className={cn(styles.input, {
+						[styles.invalid]: touched[name] && errors[name]
+					})}
 					type='text'
 					placeholder={placeholder}
 					name={name}

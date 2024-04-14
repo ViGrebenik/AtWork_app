@@ -84,7 +84,7 @@
 		.containerInputs {
 			display: flex;
 			flex-direction: column;
-			gap: 32px;
+			gap: 24px;
 			max-width: 420px;
 			@media screen and (max-width: 726px) {
 				width: 100%;
@@ -101,6 +101,9 @@
 				padding: 12px 42px 12px 42px;
 				background-color: $black;
 				transition: all 0.5s ease;
+				@media screen and (max-width: 426px) {
+					width: 100%;
+				}
 				@media (hover: hover) {
 					&:hover {
 						background-color: $white;
